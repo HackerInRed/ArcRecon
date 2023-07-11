@@ -26,13 +26,13 @@ This is a windows toolkit that help in setting up Windows in clean and easy way.
 
 ## How to use it
 
-<p>
-  This Script has a menu layout which navigates to different features of the OS 
-</p>
+This Script has a menu layout which navigates to different features of the OS 
 
 1. Activate Your OS
 2. Install Foffice
 3. Activate FOfffice
 4. Remove OneDrive
-5. Run ChrisTitusTool [here](https://github.com/ChrisTitusTech/winutil)
+5. Run ChrisTitusTool [Repo](https://github.com/ChrisTitusTech/winutil)
 6. Exit the Application
+
+You can download the installer [here](https://github.com/HackerInRed/ArcRecon/releases)
