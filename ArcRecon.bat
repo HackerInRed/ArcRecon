@@ -162,6 +162,7 @@ if /i "%achoice%" EQU "N" goto menu
     ) else goto menu    
 
 :freespotify
+    echo Install Spotify and login in to your account before running this ...
     set /P spotchoice=Do you want to install Spicetify? (Y/N): 
     if /i "%spotchoice%"=="Y" (
         powershell -Command "iwr -useb https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.ps1 | iex" 
