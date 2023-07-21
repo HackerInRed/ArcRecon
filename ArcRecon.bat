@@ -20,7 +20,8 @@ echo 2. Install Foffice
 echo 3. Activate FOffice
 echo 4. Remove OneDrive
 echo 5. Run ChrisTitusTool (To Reduce Services)
-echo 6. Exit the application
+echo 6. Activate Spicetify
+echo 7. Exit the application
 echo.
 
 set /p choice=Enter your choice : 
@@ -30,7 +31,8 @@ if "%choice%"=="2" goto foffice
 if "%choice%"=="3" goto office21
 if "%choice%"=="4" goto onedrive
 if "%choice%"=="5" goto ctt
-if "%choice%"=="6" goto exiter
+if "%choice%"=="6" goto freespotify
+if "%choice%"=="7" goto exiter
 
 :activate
 set /P achoice=Do you want to Activate Windows ? (Y/N): 
@@ -158,6 +160,16 @@ if /i "%achoice%" EQU "N" goto menu
         pause
         goto menu
     ) else goto menu    
+
+:freespotify
+    set /P spotchoice=Do you want to install Spicetify? (Y/N): 
+    if /i "%spotchoice%"=="Y" (
+        powershell -Command "iwr -useb https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.ps1 | iex" 
+        pause
+        powershell -Command "iwr -useb https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.ps1 | iex"
+        pause
+        goto menu
+    ) else goto menu
 
 :exiter
     if exist "%OfficePath%"(
