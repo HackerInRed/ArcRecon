@@ -19,9 +19,12 @@ echo 1. Activate Your OS
 echo 2. Install Foffice
 echo 3. Activate FOffice
 echo 4. Remove OneDrive
-echo 5. Run ChrisTitusTool (To Reduce Services)
+echo 5. Run ChrisTitusTool
 echo 6. Activate Spicetify
-echo 7. Exit the application
+echo 7. Right Click Ownership
+echo 8. Install Brave Browser
+echo 9. Auto Game Configuration
+echo 10. Exit
 echo.
 
 set /p choice=Enter your choice : 
@@ -32,7 +35,10 @@ if "%choice%"=="3" goto office21
 if "%choice%"=="4" goto onedrive
 if "%choice%"=="5" goto ctt
 if "%choice%"=="6" goto freespotify
-if "%choice%"=="7" goto exiter
+if "%choice%"=="7" goto rcowner
+if "%choice%"=="8" goto brave
+if "%choice%"=="9" goto gamercfg
+if "%choice%"=="10" goto exiter
 
 :activate
 set /P achoice=Do you want to Activate Windows ? (Y/N): 
@@ -171,6 +177,81 @@ if /i "%achoice%" EQU "N" goto menu
         pause
         goto menu
     ) else goto menu
+
+:rcowner
+    cls
+    echo.
+    echo Right-click Take Ownership Menu
+    echo ==================================================
+    echo 1. Add Take Ownership
+    echo 2. Remove Take Ownership
+    echo 3. Back to the Menu
+    echo ==================================================
+    set /p rcop=Type option:
+    if "%rcop%"=="1" goto addowner
+    if "%rcop%"=="2" goto remowner
+    if "%rcop%"=="3" goto menu
+    cls
+    :addowner
+    cls
+    echo Adding Take Ownership to the context menu...
+    Reg add "HKCR\*\shell\runas" /ve /t REG_SZ /d "Take Ownership" /f
+    Reg add "HKCR\*\shell\runas" /v "NoWorkingDirectory" /t REG_SZ /d "" /f
+    Reg add "HKCR\*\shell\runas\command" /ve /t REG_SZ /d "cmd.exe /c takeown /f \"%%1\" && icacls \"%%1\" /grant administrators:F" /f
+    Reg add "HKCR\*\shell\runas\command" /v "IsolatedCommand" /t REG_SZ /d "cmd.exe /c takeown /f \"%%1\" && icacls \"%%1\" /grant administrators:F" /f
+    Reg add "HKCR\Directory\shell\runas" /ve /t REG_SZ /d "Take Ownership" /f
+    Reg add "HKCR\Directory\shell\runas" /v "NoWorkingDirectory" /t REG_SZ /d "" /f
+    Reg add "HKCR\Directory\shell\runas\command" /ve /t REG_SZ /d "cmd.exe /c takeown /f \"%%1\" /r /d y && icacls \"%%1\" /grant administrators:F /t" /f
+    Reg add "HKCR\Directory\shell\runas\command" /v "IsolatedCommand" /t REG_SZ /d "cmd.exe /c takeown /f \"%%1\" /r /d y && icacls \"%%1\" /grant administrators:F /t" /f
+    timeout /t 2 >nul
+    cls
+    echo Take Ownership has been added to the Context Menu.
+    goto begin
+
+    :remowner
+    cls
+    echo Removing Take Ownership from the Context Menu...
+    Reg delete "HKCR\*\shell\runas" /f
+    Reg delete "HKCR\Directory\shell\runas" /f
+    timeout /t 2 >nul
+    cls
+    echo Take Ownership has been removed from the context menu.
+    goto begin
+    
+:brave
+    set "braveInstallerURL=https://laptop-updates.brave.com/latest/winx64"
+    set "installerPath=%USERPROFILE%\Downloads\BraveInstaller.exe"
+    powershell -command "(New-Object System.Net.WebClient).DownloadFile('%braveInstallerURL%', '%installerPath%')"
+    if %errorlevel% neq 0 (
+    echo Error: Failed to download Brave browser.
+    exit /b 1
+    )
+    "%installerPath%" --silent
+    if %errorlevel% neq 0 (
+        echo Error: Failed to install Brave browser.
+        exit /b 1
+    )
+    del "%installerPath%"
+    echo Brave browser has been successfully installed.
+    goto menu
+
+:gamercfg
+    setlocal enabledelayedexpansion
+    for /f "tokens=*" %%i in ('powercfg /list ^| findstr /i "Ultimate Performance"') do (
+        set "powerPlanExists=1"
+    )
+    if not defined powerPlanExists (
+        powercfg /duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
+        set "powerPlanExists=1"
+    )
+    if defined powerPlanExists (
+        powercfg /setactive e9a42b02-d5df-448d-aa00-03f14749eb61
+        echo Setting the power plan to Ultimate Performance...
+    ) else (
+        echo Failed to create the Ultimate Performance power plan.
+        goto menu
+    )
+    endlocal
 
 :exiter
     if exist "%OfficePath%"(
