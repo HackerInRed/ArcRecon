@@ -25,7 +25,7 @@ This is a windows toolkit that help in setting up Windows in clean and easy way.
 
 ## How to use it
 
-This Script has a menu layout which navigates to different features of the OS 
+This Script has a menu layout which navigates to different features of the Tool
 
 1. Activate Your OS
 2. Install Foffice
