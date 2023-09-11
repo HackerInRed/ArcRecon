@@ -20,8 +20,9 @@ This is a windows toolkit that help in setting up Windows in clean and easy way.
 - [x] FOffice Installation and Activation
 - [x] Uninstall Onedrive `Use it if you are do not use Onedrive`
 - [x] Run Christitus Tool `Remove Unneccessary Services`
-- [ ] Right Click Ownership
-- [ ] Tweaking for Gaming
+- [x] Right Click Ownership
+- [x] Tweaking for Gaming
+- [ ] Suggestions...
 
 ## How to use it
 
