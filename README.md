@@ -17,7 +17,6 @@ This is a windows toolkit that help in setting up Windows in clean and easy way.
 ## Features
 
 - [x] Windows Activation (Regular Terms)
-- [ ] Change Windows Editions
 - [x] FOffice Installation and Activation
 - [x] Uninstall Onedrive `Use it if you are using Laptops`
 - [x] Run Christitus Tool `Remove Unneccessary Services`
